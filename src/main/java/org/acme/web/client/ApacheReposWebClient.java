@@ -1,8 +1,8 @@
 package org.acme.web.client;
 
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -28,14 +28,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class ApacheReposWebClient {
 
 	private static final Logger logger = Logger.getLogger("ApacheReposWebClient");
-
-	private static final String gitHubAccessToken =
-	System.getProperty("githubToken") == null
-	?
-	"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"
-	: System.getProperty("githubToken");
-
-	// private static final String gitHubAccessToken = System.getProperty("githubToken");
+	private static final String gitHubAccessToken = System.getProperty("githubToken");
 
 	public List<RepoInformation> fnGetApacheReposByHttpClient() {
 		int page = 1;
@@ -102,11 +95,8 @@ public class ApacheReposWebClient {
 	}
 
 	public List<ContributorInformation> fnGetReposContributor(String contributorUrl) {
-
 		logger.info("Calling webclient fnGetReposContributor() -> " + contributorUrl);
-
 		List<ContributorInformation> contributorInformationList = new ArrayList<>();
-
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			HttpGet httpGet = new HttpGet(contributorUrl);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
@@ -132,11 +122,8 @@ public class ApacheReposWebClient {
 	}
 
 	public UserInformation fnGetUserInformation(String user) {
-
 		String url = "https://api.github.com/users/" + user;
-
 		logger.info("Calling webclient fnGetUserInformation() -> " + url);
-
 		UserInformation userInformation = new UserInformation();
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			HttpGet httpGet = new HttpGet(url);
@@ -157,7 +144,6 @@ public class ApacheReposWebClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return userInformation;
 	}
 
