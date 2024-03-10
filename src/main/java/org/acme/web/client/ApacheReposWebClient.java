@@ -1,45 +1,56 @@
-package org.acme.rest.client;
+package org.acme.web.client;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
 
-import org.acme.dto.ContributorInformation;
-import org.acme.dto.ReleaseInformation;
 import org.acme.dto.RepoInformation;
 import org.acme.dto.UserInformation;
+import org.acme.dto.ReleaseInformation;
+import org.acme.dto.ContributorInformation;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 public class ApacheReposWebClient {
 
-	public List<RepoInformation> getApacheReposByHttpClient() {
+	private static final Logger logger = Logger.getLogger("ApacheReposWebClient");
 
+	private static final String gitHubAccessToken =
+	System.getProperty("githubToken") == null
+	?
+	"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"
+	: System.getProperty("githubToken");
+
+	// private static final String gitHubAccessToken = System.getProperty("githubToken");
+
+	public List<RepoInformation> fnGetApacheReposByHttpClient() {
 		int page = 1;
 		int perPage = 100;
 		boolean hasNext = true;
 		List<RepoInformation> repoInformation = new ArrayList<>();
-
 		while (hasNext) {
 			try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
-
-				HttpGet httpGet = new HttpGet(
-						"https://api.github.com/orgs/apache/repos?page=" + page + "&per_page=" + perPage);
+				String url = "https://api.github.com/orgs/apache/repos?page=" + page + "&per_page=" + perPage;
+				logger.info("Calling webclient fnGetApacheReposByHttpClient() -> " + url);
+				HttpGet httpGet = new HttpGet(url);
 				httpGet.addHeader("Accept", "application/vnd.github+json");
-				httpGet.addHeader("Authorization", "Bearer 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");
+				httpGet.addHeader("Authorization",
+						"Bearer " + gitHubAccessToken);
 				httpGet.addHeader("X-GitHub-Api-Version", "2022-11-28");
-
 				HttpResponse httpResponse = httpClient.execute(httpGet);
 				BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
 				String line = "";
@@ -47,13 +58,10 @@ public class ApacheReposWebClient {
 					ObjectMapper objectMapper = new ObjectMapper();
 					repoInformation.addAll(objectMapper.readValue(line, new TypeReference<List<RepoInformation>>() {
 					}));
-					appendUsingPrintWriter(
-							"repos-response/repo_page_" + page,
-							repoInformation.toString());
+					fnAppendUsingPrintWriter("repos-response/repos_all_pages_info", repoInformation.toString());
 				}
 				hasNext = httpResponse.getFirstHeader("link").toString().contains("rel=\"next\"");
-				System.out.println(httpResponse.getFirstHeader("link").toString() + " hasNext -> " + hasNext
-						+ " -> page -> " + page);
+				logger.info("page_hasNext -> " + hasNext + " -> page -> " + page);
 				page++;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -62,59 +70,52 @@ public class ApacheReposWebClient {
 		return repoInformation;
 	}
 
-	public ReleaseInformation getApacheReposReleaseInfoByHttpClient(String repoName) {
-
+	public ReleaseInformation fnGetApacheReposReleaseInfoByHttpClient(String repoName) {
+		String url = "https://api.github.com/repos/apache/" + repoName + "/releases/latest";
+		logger.info("Calling webclient fnGetApacheReposReleaseInfoByHttpClient() -> " + url);
 		ReleaseInformation releaseInformation = new ReleaseInformation();
-
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
-
-			HttpGet httpGet = new HttpGet("https://api.github.com/repos/apache/" + repoName + "/releases/latest");
+			HttpGet httpGet = new HttpGet(url);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
-			httpGet.addHeader("Authorization", "Bearer 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");
+			httpGet.addHeader("Authorization",
+					"Bearer " + gitHubAccessToken);
 			httpGet.addHeader("X-GitHub-Api-Version", "2022-11-28");
-			System.out.println("release-url -> https://api.github.com/repos/apache/" + repoName + "/releases/latest");
 			HttpResponse httpResponse = httpClient.execute(httpGet);
-			System.out.println("release call -> " + httpResponse.getStatusLine().getStatusCode());
+			logger.info("webclient call status -> " + httpResponse.getStatusLine().getStatusCode());
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				System.out.println("release called -> " + httpResponse.getStatusLine().getStatusCode());
 				BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
 				String line = "";
 				if ((line = br.readLine()) != null) {
 					ObjectMapper objectMapper = new ObjectMapper();
 					releaseInformation = objectMapper.readValue(line, ReleaseInformation.class);
-					System.out.println(line);
+					logger.info(line);
 					if (releaseInformation.getAssets().size() > 0) {
-						appendUsingPrintWriter(
-								"release-response/" + repoName,
-								releaseInformation.toString());
-						System.out.println("nested: " + line);
+						fnAppendUsingPrintWriter("release-response/" + repoName, releaseInformation.toString());
+						logger.info("nested: " + line);
 					}
-
 				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return releaseInformation;
 	}
 
-	public List<ContributorInformation> getReposContributor(String contributorUrl) {
-		System.out.println("calling getReposContributor() -> "+ contributorUrl);
+	public List<ContributorInformation> fnGetReposContributor(String contributorUrl) {
+
+		logger.info("Calling webclient fnGetReposContributor() -> " + contributorUrl);
+
 		List<ContributorInformation> contributorInformationList = new ArrayList<>();
 
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
-
 			HttpGet httpGet = new HttpGet(contributorUrl);
-			System.out.println("client url -> " + contributorUrl);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
-			httpGet.addHeader("Authorization", "Bearer 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");
+			httpGet.addHeader("Authorization",
+					"Bearer " + gitHubAccessToken);
 			httpGet.addHeader("X-GitHub-Api-Version", "2022-11-28");
 			HttpResponse httpResponse = httpClient.execute(httpGet);
-			System.out.println("release call -> " + httpResponse.getStatusLine().getStatusCode());
+			logger.info("webclient call status -> " + httpResponse.getStatusLine().getStatusCode());
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				System.out.println("release called -> " + httpResponse.getStatusLine().getStatusCode());
 				BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
 				String line = "";
 				if ((line = br.readLine()) != null) {
@@ -127,21 +128,25 @@ public class ApacheReposWebClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return contributorInformationList;
 	}
 
-	public UserInformation getUserInformation(String user) {
+	public UserInformation fnGetUserInformation(String user) {
+
+		String url = "https://api.github.com/users/" + user;
+
+		logger.info("Calling webclient fnGetUserInformation() -> " + url);
+
 		UserInformation userInformation = new UserInformation();
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
-			HttpGet httpGet = new HttpGet("https://api.github.com/users/" + user);
+			HttpGet httpGet = new HttpGet(url);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
-			httpGet.addHeader("Authorization", "Bearer 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");
+			httpGet.addHeader("Authorization",
+					"Bearer " + gitHubAccessToken);
 			httpGet.addHeader("X-GitHub-Api-Version", "2022-11-28");
 			HttpResponse httpResponse = httpClient.execute(httpGet);
-			System.out.println("release call -> " + httpResponse.getStatusLine().getStatusCode());
+			logger.info("webclient call status -> " + httpResponse.getStatusLine().getStatusCode());
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				System.out.println("release called -> " + httpResponse.getStatusLine().getStatusCode());
 				BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
 				String line = "";
 				if ((line = br.readLine()) != null) {
@@ -156,7 +161,7 @@ public class ApacheReposWebClient {
 		return userInformation;
 	}
 
-	private void appendUsingPrintWriter(String filePath, String text) {
+	private void fnAppendUsingPrintWriter(String filePath, String text) {
 		File file = new File(filePath);
 		FileWriter fr = null;
 		BufferedWriter br = null;

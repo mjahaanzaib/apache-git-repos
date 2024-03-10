@@ -1,55 +1,48 @@
 package org.acme.service;
 
-import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Objects;
-import java.util.Map.Entry;
 
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import java.util.logging.Logger;
+import java.util.Collections;
+import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Objects;
+import java.util.List;
+
+import org.acme.web.client.ApacheReposWebClient;
+import org.h2.jdbcx.JdbcDataSource;
 import org.acme.dto.ContributorInformation;
 import org.acme.dto.ReleaseInformation;
 import org.acme.dto.RepoInformation;
-import org.acme.dto.Response;
 import org.acme.dto.UserInformation;
-import org.acme.rest.client.ApacheReposWebClient;
-import org.acme.web.MainResource;
-import org.h2.jdbcx.JdbcDataSource;
-import org.jboss.logging.Logger;
+import org.acme.dto.Response;
 
 public class ApacheReposService {
-
-	private static final Logger logger = Logger.getLogger(MainResource.class);
+	private static final Logger logger = Logger.getLogger("ApacheReposService");
 
 	public List<RepoInformation> getApacheReposList() {
-		System.out.println("getting repos information...");
+		logger.info("Getting repos information list...");
 		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
-		List<RepoInformation> reposInformation = apacheReposWebClient.getApacheReposByHttpClient();
+		List<RepoInformation> reposInformation = apacheReposWebClient.fnGetApacheReposByHttpClient();
 		return reposInformation;
 	}
 
 	public List<Response> getTopFiveReposWithMostDownloads() {
-		// Hashtable<String, ReleaseInformation> hashtableOfReleaseInfoByRepo = new
-		// Hashtable<>();
+		logger.info("Getting top 5 most downloads repos...");
 		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		int count = 0;
 		ArrayList<Response> responseList = new ArrayList<>();
 		// for (RepoInformation repoInformation : getApacheReposList()) {
-		// System.out.println(count++);
+		// logger.info("" + count++);
 		// Response response = new Response();
 		// ReleaseInformation releaseInformation = apacheReposWebClient
-		// .getApacheReposReleaseInfoByHttpClient(repoInformation.getName());
+		// .fnGetApacheReposReleaseInfoByHttpClient(repoInformation.getName());
 		// if (!Objects.isNull(releaseInformation)) {
 		// response = new Response(repoInformation.getName(),
 		// releaseInformation.getId(),
@@ -58,71 +51,76 @@ public class ApacheReposService {
 		// repoInformation.getContributorsUrl());
 		// responseList.add(response);
 		// }
-
 		// }
+
 		responseList.add(
-				new Response("xyz", 521, "xoxo", 12, "https://api.github.com/repos/apache/tapestry3/contributors"));
+				new Response("xyz", 521, "xoxo", 12,
+						"https://api.github.com/repos/apache/tapestry3/contributors"));
 		responseList.add(
-				new Response("xyz", 521, "xoxo", 111, "https://api.github.com/repos/apache/maven-mvnd/contributors"));
+				new Response("xyz", 521, "xoxo", 111,
+						"https://api.github.com/repos/apache/maven-mvnd/contributors"));
 		responseList.add(new Response("third", 521, "xoxo", 12232,
 				"https://api.github.com/repos/apache/predictionio/contributors"));
 		responseList.add(
-				new Response("xyz", 521, "xoxo", 123, "https://api.github.com/repos/apache/flink-cdc/contributors"));
-		responseList.add(new Response("xyz", 521, "xoxo", 112, "https://api.github.com/repos/apache/tvm/contributors"));
+				new Response("xyz", 521, "xoxo", 123,
+						"https://api.github.com/repos/apache/flink-cdc/contributors"));
+		responseList.add(new Response("xyz", 521, "xoxo", 112,
+				"https://api.github.com/repos/apache/tvm/contributors"));
 		responseList.add(
-				new Response("xyz", 521, "xoxo", 1299, "https://api.github.com/repos/apache/streampipes/contributors"));
+				new Response("xyz", 521, "xoxo", 1299,
+						"https://api.github.com/repos/apache/streampipes/contributors"));
 		responseList.add(new Response("first", 521, "xoxo", 1299999,
 				"https://api.github.com/repos/apache/superset/contributors"));
 		responseList.add(new Response("second", 521, "xoxo", 1289898,
 				"https://api.github.com/repos/apache/camel-k/contributors"));
-		responseList.add(new Response("xyz", 521, "xoxo", 13, "https://api.github.com/repos/apache/hop/contributors"));
+		responseList.add(new Response("xyz", 521, "xoxo", 13,
+				"https://api.github.com/repos/apache/hop/contributors"));
 		responseList
-				.add(new Response("xyz", 521, "xoxo", 189, "https://api.github.com/repos/apache/geode/contributors"));
+				.add(new Response("xyz", 521, "xoxo", 189,
+						"https://api.github.com/repos/apache/geode/contributors"));
 		responseList
-				.add(new Response("xyz", 521, "xoxo", 120, "https://api.github.com/repos/apache/xalan-c/contributors"));
+				.add(new Response("xyz", 521, "xoxo", 120,
+						"https://api.github.com/repos/apache/xalan-c/contributors"));
 		Collections.sort(responseList);
-		System.out.println("hashtable -> " + responseList.size());
-		System.out.println("Sorted list -> " + responseList.toString());
 
-		return responseList.subList(0, Math.min(responseList.size(), 5));
+		logger.info("hashtable -> " + responseList.size());
+
+		List<Response> top5mostDownloadsRepos = responseList.subList(0, Math.min(responseList.size(), 5));
+		logger.info("Five Repos sorted by most downloads -> " + top5mostDownloadsRepos.toString());
+
+		return top5mostDownloadsRepos;
 	}
 
-	public Hashtable<String, List<ContributorInformation>> getTopTenReposContributor() {
+	public Hashtable<String, List<ContributorInformation>> fnGetTopTenReposContributor() {
+		logger.info("Getting top 10 repo contributors information list...");
 		List<Response> topFiveRepos = getTopFiveReposWithMostDownloads();
 		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = new Hashtable<String, List<ContributorInformation>>();
 		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		for (Response response : topFiveRepos) {
 			List<ContributorInformation> contributorInformationList = new ArrayList<ContributorInformation>();
-			contributorInformationList = apacheReposWebClient.getReposContributor(response.getContributorUrl());
+			contributorInformationList = apacheReposWebClient.fnGetReposContributor(response.getContributorUrl());
 			Collections.sort(contributorInformationList);
-			contributorsTableofRepo.put(response.getRepoName(),
-					contributorInformationList.subList(0, Math.min(contributorInformationList.size(), 10)));
+			List<ContributorInformation> top10ContributorsInfo = contributorInformationList.subList(0,
+					Math.min(contributorInformationList.size(), 10));
+			contributorsTableofRepo.put(response.getRepoName(), top10ContributorsInfo);
 		}
-		System.out.println("hashtable: " + contributorsTableofRepo);
-
+		logger.info(" Top 10 contributors of repo sorted by most commits -> " + contributorsTableofRepo.toString());
 		return contributorsTableofRepo;
 	}
 
 	public void fnSaveContributorInfo() {
-
-		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = getTopTenReposContributor();
+		logger.info("Storing top 10 contributors of repo in h2 db...");
+		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = fnGetTopTenReposContributor();
 		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		for (Entry<String, List<ContributorInformation>> repoTable : contributorsTableofRepo.entrySet()) {
 			for (ContributorInformation contributorInformation : repoTable.getValue()) {
-				System.out.println("contributorInformation.getLogin() -> " + contributorInformation.getLogin());
 				UserInformation userInformation = apacheReposWebClient
-						.getUserInformation(contributorInformation.getLogin());
+						.fnGetUserInformation(contributorInformation.getLogin());
 				userInformation.setRepoName(repoTable.getKey());
 				userInformation.setCommitCount(contributorInformation.getContributions());
-				// userInformation.getLogin();
-				// userInformation.getName();
-				// userInformation.getLocation();
-				// userInformation.getCompany();
-				System.out.println("userInformation -> " + userInformation.toString());
+				logger.info("userInformation -> " + userInformation.toString());
 				try {
-					System.out.println("try to saving...");
-					setupDatabase(userInformation);
-					System.out.println("saved...");
+					fnSaveInfoInH2Database(userInformation);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -130,8 +128,8 @@ public class ApacheReposService {
 		}
 	}
 
-	private void setupDatabase(UserInformation userInformation) {
-		System.out.println("calling setupDatabase()....");
+	private void fnSaveInfoInH2Database(UserInformation userInformation) {
+		logger.info("Saving info in h2 database....");
 		JdbcDataSource dataSource = new JdbcDataSource();
 		dataSource.setURL("jdbc:h2:file:./h2/apache_github_data");
 		String createTableQuery = "CREATE TABLE IF NOT EXISTS contributor_info (" +
@@ -143,19 +141,17 @@ public class ApacheReposService {
 				"contributor_company VARCHAR(255)," +
 				"commit_count int" +
 				");";
-
 		try (var connection = dataSource.getConnection()) {
 			connection.createStatement().execute(createTableQuery);
-			saveContributors(connection, userInformation);
+			fnSaveContributors(connection, userInformation);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
-	private void saveContributors(Connection connection, UserInformation userInformation) throws SQLException {
+	private void fnSaveContributors(Connection connection, UserInformation userInformation) throws SQLException {
 
-		System.out.println("calling saveContributors()....");
+		logger.info("Calling saveContributors()....");
 
 		String contributorInfo = "INSERT INTO contributor_info (repository_name, contributor_username, contributor_name, contributor_location, contributor_company, commit_count) VALUES (?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement preparedStatement = connection.prepareStatement(contributorInfo)) {
@@ -166,24 +162,41 @@ public class ApacheReposService {
 			preparedStatement.setString(5, userInformation.getCompany());
 			preparedStatement.setLong(6, userInformation.getCommitCount());
 
-			System.out.println("Insertion -> " + preparedStatement.executeUpdate());
+			logger.info("Insertion status -> " + preparedStatement.executeUpdate());
+			if (preparedStatement.executeUpdate() == 1) {
+				logger.info("Saved...");
+			} else {
+				logger.info("Not saved...");
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
-		// Query all.
+	public void fnGetContributionsInfoFromH2() {
+		JdbcDataSource dataSource = new JdbcDataSource();
+		dataSource.setUrl("jdbc:h2:file:./h2/apache_github_data");
 		String contributorInfoSelect = "SELECT repository_name, contributor_username, contributor_name, contributor_location, contributor_company, commit_count FROM contributor_info";
 		try (
+				Connection connection = dataSource.getConnection();
 				Statement stmt = connection.createStatement();
 				ResultSet rs = stmt.executeQuery(contributorInfoSelect);) {
+
+			logger.info("============ Stored Info In H2 ============");
 			while (rs.next()) {
 				// Retrieve by column name
-				// int id = rs.getInt("id");
-				String title = rs.getString("repository_name");
-				String odt = rs.getString("contributor_username");
-				long duration = rs.getLong("commit_count");
-				System.out.println("id-> " + "" + " - " + title + " - " + odt + " - " + duration);
+				String repositoryName = rs.getString("repository_name");
+				String contributorUsername = rs.getString("contributor_username");
+				String contributorName = rs.getString("contributor_name");
+				String contributorLocation = rs.getString("contributor_location");
+				String contributorCompany = rs.getString("contributor_company");
+				long commitCount = rs.getLong("commit_count");
+
+				logger.info("repository_name : " + repositoryName + " | contributor_username : " + contributorUsername
+						+ " | contributor_name : " + contributorName + " | contributor_location : "
+						+ contributorLocation + " | contributor_company : " + contributorCompany + " | commit_count : "
+						+ commitCount);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
