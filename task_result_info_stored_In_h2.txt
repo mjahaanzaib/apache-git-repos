@@ -1,0 +1,104 @@
+INFO: ========= Try to retrieve apache repositories information from H2 =========
+Mar 12, 2024 2:14:38 AM org.acme.service.ApacheReposService fnGetContributionsInfoFromH2
+INFO: ============ Stored Info In H2 ============
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : puiterwijk | contributor_name : Patrick Uiterwijk | contributor_location : Earth | contributor_company : Red Hat | commit_count : 47
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : mitsuhiko | contributor_name : Armin Ronacher | contributor_location : Austria | contributor_company : Sentry | commit_count : 24
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : plaes | contributor_name : Priit Laes | contributor_location : Estonia | contributor_company : null | commit_count : 4
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : pypingou | contributor_name : Pierre-Yves Chibon | contributor_location : null | contributor_company : null | commit_count : 3
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : potiuk | contributor_name : Jarek Potiuk | contributor_location : Warsaw | contributor_company : Apache Software Foundation | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : bsdlp | contributor_name : jon | contributor_location : Los Angeles, CA | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : kamn | contributor_name : Samuel Miller | contributor_location : null | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : prsteele | contributor_name : Patrick Steele | contributor_location : Dedham, MA | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : yuvallanger | contributor_name : Yuval Langer | contributor_location : null | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : wilsaj | contributor_name : Andy Wilson | contributor_location : Austin, TX | contributor_company : null | commit_count : 1
+
+INFO: repository_name : openwhisk-client-swift | contributor_username : paulcastro | contributor_name : Paul Castro | contributor_location : null | contributor_company : IBM Research | commit_count : 38
+INFO: repository_name : openwhisk-client-swift | contributor_username : mrutkows | contributor_name : Matt Rutkowski | contributor_location : Austin | contributor_company : IBM | commit_count : 4
+INFO: repository_name : openwhisk-client-swift | contributor_username : AnthonyOliveri | contributor_name : Anthony Oliveri | contributor_location : Austin, Tx | contributor_company : Sysco LABS | commit_count : 1
+INFO: repository_name : openwhisk-client-swift | contributor_username : csantanapr | contributor_name : Carlos Santana | contributor_location : Raleigh, NC | contributor_company : AWS | commit_count : 1
+INFO: repository_name : openwhisk-client-swift | contributor_username : rabbah | contributor_name : rodric rabbah | contributor_location : New York | contributor_company : null | commit_count : 1
+
+INFO: repository_name : superset | contributor_username : mistercrunch | contributor_name : Maxime Beauchemin | contributor_location : San Mateo, CA | contributor_company : preset-io | commit_count : 2126
+INFO: repository_name : superset | contributor_username : kristw | contributor_name : Krist Wongsuphasawat | contributor_location : San Francisco, CA | contributor_company : @airbnb  | commit_count : 834
+INFO: repository_name : superset | contributor_username : villebro | contributor_name : Ville Brofeldt | contributor_location : Palo Alto, California | contributor_company : null | commit_count : 787
+INFO: repository_name : superset | contributor_username : betodealmeida | contributor_name : Beto Dealmeida | contributor_location : Bodega Bay, CA | contributor_company : @preset-io | commit_count : 573
+INFO: repository_name : superset | contributor_username : michael-s-molina | contributor_name : Michael S. Molina | contributor_location : Curitiba, Brazil | contributor_company : Airbnb | commit_count : 568
+INFO: repository_name : superset | contributor_username : john-bodley | contributor_name : John Bodley | contributor_location : null | contributor_company : null | commit_count : 545
+INFO: repository_name : superset | contributor_username : dependabot | contributor_name : Dependabot | contributor_location : United States of America | contributor_company : null | commit_count : 505
+INFO: repository_name : superset | contributor_username : kgabryje | contributor_name : Kamil Gabryjelski | contributor_location : Warsaw | contributor_company : Preset | commit_count : 440
+INFO: repository_name : superset | contributor_username : dpgaspar | contributor_name : Daniel Vaz Gaspar | contributor_location : Lisbon, Portugal | contributor_company : @preset-io @apache | commit_count : 437
+INFO: repository_name : superset | contributor_username : ktmud | contributor_name : Jesse Yang | contributor_location : San Francisco | contributor_company : Airbnb | commit_count : 393
+
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : dgrove-oss | contributor_name : David Grove | contributor_location : null | contributor_company : @IBM  | commit_count : 296
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : mrutkows | contributor_name : Matt Rutkowski | contributor_location : Austin | contributor_company : IBM | commit_count : 17
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : ningyougang | contributor_name : ningyougang | contributor_location : China,Sichuan province,Chengdu City | contributor_company : Naver China | commit_count : 9
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : csantanapr | contributor_name : Carlos Santana | contributor_location : Raleigh, NC | contributor_company : AWS | commit_count : 8
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : neerajmangal | contributor_name : Neeraj Mangal | contributor_location : Noida, India | contributor_company : @adobe  | commit_count : 6
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : neeraj-laad | contributor_name : Neeraj Laad | contributor_location : UK | contributor_company : IBM | commit_count : 5
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : buggtb | contributor_name : Tom Barber | contributor_location : null | contributor_company : null | commit_count : 5
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : cduque89 | contributor_name : Carlos Duque | contributor_location : null | contributor_company : null | commit_count : 4
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : hunhoffe | contributor_name : Erika Hunhoff | contributor_location : Boulder, Colorado USA | contributor_company : null | commit_count : 3
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : paul42 | contributor_name : Paul.42 | contributor_location : null | contributor_company : null | commit_count : 3
+
+INFO: repository_name : yunikorn-release | contributor_username : craigcondit | contributor_name : Craig Condit | contributor_location : Sioux Falls, SD | contributor_company : null | commit_count : 33
+INFO: repository_name : yunikorn-release | contributor_username : yangwwei | contributor_name : Weiwei Yang | contributor_location : California | contributor_company : @Apple  | commit_count : 31
+INFO: repository_name : yunikorn-release | contributor_username : wilfred-s | contributor_name : Wilfred Spiegelenburg | contributor_location : Melbourne | contributor_company : null | commit_count : 29
+INFO: repository_name : yunikorn-release | contributor_username : kingamarton | contributor_name : Kinga Marton | contributor_location : null | contributor_company : null | commit_count : 16
+INFO: repository_name : yunikorn-release | contributor_username : HuangTing-Yao | contributor_name : Tingyao Huang | contributor_location : null | contributor_company : null | commit_count : 8
+INFO: repository_name : yunikorn-release | contributor_username : FrankYang0529 | contributor_name : PoAn Yang | contributor_location : null | contributor_company : SUSE | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : pbacsko | contributor_name : null | contributor_location : null | contributor_company : null | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : boniek83 | contributor_name : Rafa? Boniecki | contributor_location : Gda?sk | contributor_company : null | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : TaoYang526 | contributor_name : Tao Yang | contributor_location : null | contributor_company : null | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : updown321 | contributor_name : Weihsiao Lin | contributor_location : null | contributor_company : null | commit_count : 3
+
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : puiterwijk | contributor_name : Patrick Uiterwijk | contributor_location : Earth | contributor_company : Red Hat | commit_count : 47
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : mitsuhiko | contributor_name : Armin Ronacher | contributor_location : Austria | contributor_company : Sentry | commit_count : 24
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : plaes | contributor_name : Priit Laes | contributor_location : Estonia | contributor_company : null | commit_count : 4
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : pypingou | contributor_name : Pierre-Yves Chibon | contributor_location : null | contributor_company : null | commit_count : 3
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : potiuk | contributor_name : Jarek Potiuk | contributor_location : Warsaw | contributor_company : Apache Software Foundation | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : bsdlp | contributor_name : jon | contributor_location : Los Angeles, CA | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : kamn | contributor_name : Samuel Miller | contributor_location : null | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : prsteele | contributor_name : Patrick Steele | contributor_location : Dedham, MA | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : yuvallanger | contributor_name : Yuval Langer | contributor_location : null | contributor_company : null | commit_count : 1
+INFO: repository_name : airflow-flask-openid-fork | contributor_username : wilsaj | contributor_name : Andy Wilson | contributor_location : Austin, TX | contributor_company : null | commit_count : 1
+
+INFO: repository_name : openwhisk-client-swift | contributor_username : paulcastro | contributor_name : Paul Castro | contributor_location : null | contributor_company : IBM Research | commit_count : 38
+INFO: repository_name : openwhisk-client-swift | contributor_username : mrutkows | contributor_name : Matt Rutkowski | contributor_location : Austin | contributor_company : IBM | commit_count : 4
+INFO: repository_name : openwhisk-client-swift | contributor_username : AnthonyOliveri | contributor_name : Anthony Oliveri | contributor_location : Austin, Tx | contributor_company : Sysco LABS | commit_count : 1
+INFO: repository_name : openwhisk-client-swift | contributor_username : csantanapr | contributor_name : Carlos Santana | contributor_location : Raleigh, NC | contributor_company : AWS | commit_count : 1
+INFO: repository_name : openwhisk-client-swift | contributor_username : rabbah | contributor_name : rodric rabbah | contributor_location : New York | contributor_company : null | commit_count : 1
+
+INFO: repository_name : superset | contributor_username : mistercrunch | contributor_name : Maxime Beauchemin | contributor_location : San Mateo, CA | contributor_company : preset-io | commit_count : 2128
+INFO: repository_name : superset | contributor_username : kristw | contributor_name : Krist Wongsuphasawat | contributor_location : San Francisco, CA | contributor_company : @airbnb  | commit_count : 834
+INFO: repository_name : superset | contributor_username : villebro | contributor_name : Ville Brofeldt | contributor_location : Palo Alto, California | contributor_company : null | commit_count : 787
+INFO: repository_name : superset | contributor_username : betodealmeida | contributor_name : Beto Dealmeida | contributor_location : Bodega Bay, CA | contributor_company : @preset-io | commit_count : 573
+INFO: repository_name : superset | contributor_username : michael-s-molina | contributor_name : Michael S. Molina | contributor_location : Curitiba, Brazil | contributor_company : Airbnb | commit_count : 568
+INFO: repository_name : superset | contributor_username : john-bodley | contributor_name : John Bodley | contributor_location : null | contributor_company : null | commit_count : 545
+INFO: repository_name : superset | contributor_username : dependabot | contributor_name : Dependabot | contributor_location : United States of America | contributor_company : null | commit_count : 507
+INFO: repository_name : superset | contributor_username : kgabryje | contributor_name : Kamil Gabryjelski | contributor_location : Warsaw | contributor_company : Preset | commit_count : 440
+INFO: repository_name : superset | contributor_username : dpgaspar | contributor_name : Daniel Vaz Gaspar | contributor_location : Lisbon, Portugal | contributor_company : @preset-io @apache | commit_count : 437
+INFO: repository_name : superset | contributor_username : ktmud | contributor_name : Jesse Yang | contributor_location : San Francisco | contributor_company : Airbnb | commit_count : 393
+
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : dgrove-oss | contributor_name : David Grove | contributor_location : null | contributor_company : @IBM  | commit_count : 296
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : mrutkows | contributor_name : Matt Rutkowski | contributor_location : Austin | contributor_company : IBM | commit_count : 17
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : ningyougang | contributor_name : ningyougang | contributor_location : China,Sichuan province,Chengdu City | contributor_company : Naver China | commit_count : 9
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : csantanapr | contributor_name : Carlos Santana | contributor_location : Raleigh, NC | contributor_company : AWS | commit_count : 8
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : neerajmangal | contributor_name : Neeraj Mangal | contributor_location : Noida, India | contributor_company : @adobe  | commit_count : 6
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : neeraj-laad | contributor_name : Neeraj Laad | contributor_location : UK | contributor_company : IBM | commit_count : 5
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : buggtb | contributor_name : Tom Barber | contributor_location : null | contributor_company : null | commit_count : 5
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : cduque89 | contributor_name : Carlos Duque | contributor_location : null | contributor_company : null | commit_count : 4
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : hunhoffe | contributor_name : Erika Hunhoff | contributor_location : Boulder, Colorado USA | contributor_company : null | commit_count : 3
+INFO: repository_name : openwhisk-deploy-kube | contributor_username : paul42 | contributor_name : Paul.42 | contributor_location : null | contributor_company : null | commit_count : 3
+
+INFO: repository_name : yunikorn-release | contributor_username : craigcondit | contributor_name : Craig Condit | contributor_location : Sioux Falls, SD | contributor_company : null | commit_count : 33
+INFO: repository_name : yunikorn-release | contributor_username : yangwwei | contributor_name : Weiwei Yang | contributor_location : California | contributor_company : @Apple  | commit_count : 31
+INFO: repository_name : yunikorn-release | contributor_username : wilfred-s | contributor_name : Wilfred Spiegelenburg | contributor_location : Melbourne | contributor_company : null | commit_count : 29
+INFO: repository_name : yunikorn-release | contributor_username : kingamarton | contributor_name : Kinga Marton | contributor_location : null | contributor_company : null | commit_count : 16
+INFO: repository_name : yunikorn-release | contributor_username : HuangTing-Yao | contributor_name : Tingyao Huang | contributor_location : null | contributor_company : null | commit_count : 8
+INFO: repository_name : yunikorn-release | contributor_username : FrankYang0529 | contributor_name : PoAn Yang | contributor_location : null | contributor_company : SUSE | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : pbacsko | contributor_name : null | contributor_location : null | contributor_company : null | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : boniek83 | contributor_name : Rafa? Boniecki | contributor_location : Gda?sk | contributor_company : null | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : TaoYang526 | contributor_name : Tao Yang | contributor_location : null | contributor_company : null | commit_count : 3
+INFO: repository_name : yunikorn-release | contributor_username : updown321 | contributor_name : Weihsiao Lin | contributor_location : null | contributor_company : null | commit_count : 3
+
+INFO: ========= Successfully retrieved apache repositories information from H2 =========
