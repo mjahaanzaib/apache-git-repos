@@ -2,6 +2,8 @@ package org.acme.service;
 
 import java.sql.PreparedStatement;
 
+import java.text.SimpleDateFormat;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Objects;
 import java.util.List;
+import java.util.Date;
 
 import org.acme.web.client.ApacheReposWebClient;
 import org.acme.dto.ContributorInformation;
@@ -24,8 +27,13 @@ import org.acme.dto.UserInformation;
 import org.acme.dto.Response;
 
 public class ApacheReposService {
+
+	SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy-HHmmss");
+	Date date = new Date();
+	String dateTime = formatter.format(date);
+
 	private static final Logger logger = Logger.getLogger("ApacheReposService");
-	private final String URL = "jdbc:h2:file:./h2/apache_github_data";
+	private final String URL = "jdbc:h2:file:./h2/apache_github_data_" + dateTime;
 	private final String USERNAME = "userh2";
 	private final String PASSWORD = "12345";
 
@@ -37,35 +45,29 @@ public class ApacheReposService {
 
 	public List<RepoInformation> getApacheReposList() {
 		logger.info("Getting repos information list...");
-		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
-		List<RepoInformation> reposInformation = apacheReposWebClient.fnGetApacheReposByHttpClient();
-		return reposInformation;
+		return apacheReposWebClient.fnGetApacheReposByHttpClient();
 	}
 
 	public List<Response> getTopFiveReposWithMostDownloads() {
 		logger.info("Getting top 5 most downloads repos...");
-		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		int count = 0;
 		ArrayList<Response> responseList = new ArrayList<>();
 		for (RepoInformation repoInformation : getApacheReposList()) {
+			logger.info("RepoInformation -> " + (count++) + " -> " + repoInformation);
 			ReleaseInformation releaseInformation = apacheReposWebClient
 					.fnGetApacheReposReleaseInfoByHttpClient(repoInformation.getName());
 			if (Objects.nonNull(releaseInformation) && !releaseInformation.getAssets().isEmpty()) {
-				logger.info("RepoInformation -> " + (count++) + " -> " + repoInformation);
 				Response response = new Response();
-				response = new Response(repoInformation.getName(),
-						releaseInformation.getId(),
+				response = new Response(releaseInformation.getId(),
 						releaseInformation.getTagName(),
+						repoInformation.getName(),
 						releaseInformation.getAssets().get(0).getDownloadCount(),
 						repoInformation.getContributorsUrl());
 				responseList.add(response);
 			}
 		}
-		// responseList.add(
-		// new Response("xyz", 521, "xoxo", 12,
-		// "https://api.github.com/repos/apache/tapestry3/contributors"));
 		Collections.sort(responseList);
-		logger.info("hashtable -> " + responseList.size());
+		logger.info("ResponseList -> " + responseList.size());
 		List<Response> top5mostDownloadsRepos = responseList.subList(0, Math.min(responseList.size(), 5));
 		logger.info("Five Repos sorted by most downloads -> " + top5mostDownloadsRepos.toString());
 		return top5mostDownloadsRepos;
@@ -75,7 +77,6 @@ public class ApacheReposService {
 		logger.info("Getting top 10 repo contributors information list...");
 		List<Response> topFiveRepos = getTopFiveReposWithMostDownloads();
 		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = new Hashtable<String, List<ContributorInformation>>();
-		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		for (Response response : topFiveRepos) {
 			List<ContributorInformation> contributorInformationList = new ArrayList<ContributorInformation>();
 			contributorInformationList = apacheReposWebClient.fnGetReposContributor(response.getContributorUrl());
@@ -91,7 +92,6 @@ public class ApacheReposService {
 	public void fnSaveContributorInfo() {
 		logger.info("Storing top 10 contributors of repo in h2 db...");
 		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = fnGetTopTenReposContributor();
-		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		for (Entry<String, List<ContributorInformation>> repoTable : contributorsTableofRepo.entrySet()) {
 			for (ContributorInformation contributorInformation : repoTable.getValue()) {
 				UserInformation userInformation = apacheReposWebClient
