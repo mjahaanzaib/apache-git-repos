@@ -1,11 +1,20 @@
 package org.acme.dto;
 
 public class Response implements Comparable<Response> {
-    private String repoName;
+
     private long id;
     private String tagName;
+    private String repoName;
     private long downlaodCount;
     private String contributorUrl;
+
+    public Response(long id, String tagName, String repoName, long downlaodCount, String contributorUrl) {
+        this.id = id;
+        this.tagName = tagName;
+        this.repoName = repoName;
+        this.downlaodCount = downlaodCount;
+        this.contributorUrl = contributorUrl;
+    }
 
     public long getId() {
         return id;
@@ -42,14 +51,6 @@ public class Response implements Comparable<Response> {
         this.repoName = repoName;
     }
 
-    public Response(String repoName, long id, String tagName, long downlaodCount,String contributorUrl) {
-        this.repoName = repoName;
-        this.id = id;
-        this.tagName = tagName;
-        this.downlaodCount = downlaodCount;
-        this.contributorUrl = contributorUrl;
-    }
-
     public String getContributorUrl() {
         return contributorUrl;
     }
@@ -60,14 +61,12 @@ public class Response implements Comparable<Response> {
 
     @Override
     public int compareTo(Response object) {
-        return Long.compare(object.downlaodCount,this.downlaodCount);
+        return Long.compare(object.downlaodCount, this.downlaodCount);
     }
 
     @Override
     public String toString() {
-        return "Response [repoName=" + repoName + ", id=" + id + ", tagName=" + tagName + ", downlaodCount="
-                + downlaodCount + "]";
+        return "Response [id=" + id + ", tagName=" + tagName + ", repoName=" + repoName + ", downlaodCount="
+                + downlaodCount + ", contributorUrl=" + contributorUrl + "]";
     }
-
-    
 }
