@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
 
 import org.acme.dto.RepoInformation;
 import org.acme.dto.UserInformation;
@@ -41,6 +42,7 @@ public class ApacheReposWebClient {
 		int perPage = 100;
 		boolean hasNext = true;
 		List<RepoInformation> repoInformation = new ArrayList<>();
+		fnSetFileBlank("repos-response/repos_all_pages_info");
 		while (hasNext) {
 			try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 				String url = "https://api.github.com/orgs/apache/repos?page=" + page + "&per_page=" + perPage;
@@ -73,6 +75,7 @@ public class ApacheReposWebClient {
 		String url = "https://api.github.com/repos/apache/" + repoName + "/releases/latest";
 		logger.info("Calling webclient fnGetApacheReposReleaseInfoByHttpClient() -> " + url);
 		ReleaseInformation releaseInformation = new ReleaseInformation();
+		fnSetFileBlank("repos-response/repos_all_pages_info");
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			HttpGet httpGet = new HttpGet(url);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
@@ -90,10 +93,9 @@ public class ApacheReposWebClient {
 					logger.info(line);
 					if (releaseInformation.getAssets().size() > 0) {
 						fnWriteResponseInFile("release-response/" + repoName, releaseInformation.toString());
-						// logger.info("nested: " + line);
 					}
 				}
-			}else{
+			} else {
 				return null;
 			}
 		} catch (Exception e) {
@@ -176,6 +178,17 @@ public class ApacheReposWebClient {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	void fnSetFileBlank(String fileName) {
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(fileName);
+			writer.print("");
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 }
