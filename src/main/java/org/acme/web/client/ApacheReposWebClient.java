@@ -1,36 +1,35 @@
 package org.acme.web.client;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.logging.Logger;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
 
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.HttpResponse;
+
+import org.acme.dto.ContributorInformation;
+import org.acme.dto.ReleaseInformation;
 import org.acme.dto.RepoInformation;
 import org.acme.dto.UserInformation;
-import org.acme.dto.ReleaseInformation;
-import org.acme.dto.ContributorInformation;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ApacheReposWebClient {
 
 	private static final Logger logger = Logger.getLogger("ApacheReposWebClient");
-	// private static final String gitHubAccessToken =
-	// "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";
+
 	private String gitHubAccessToken;
 
 	public ApacheReposWebClient(String gitHubAccessToken) {
@@ -41,7 +40,8 @@ public class ApacheReposWebClient {
 		int page = 1;
 		int perPage = 100;
 		boolean hasNext = true;
-		List<RepoInformation> repoInformation = new ArrayList<>();
+		List<RepoInformation> repoInformationList = new ArrayList<>();
+		// Clear all repos pages data
 		fnSetFileBlank("repos-response/repos_all_pages_info");
 		while (hasNext) {
 			try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
@@ -55,27 +55,35 @@ public class ApacheReposWebClient {
 				HttpResponse httpResponse = httpClient.execute(httpGet);
 				BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
 				String line = "";
-				if ((line = br.readLine()) != null) {
-					ObjectMapper objectMapper = new ObjectMapper();
-					repoInformation.addAll(objectMapper.readValue(line, new TypeReference<List<RepoInformation>>() {
-					}));
-					fnWriteResponseInFile("repos-response/repos_all_pages_info", repoInformation.toString());
+				if (httpResponse.getStatusLine().getStatusCode() == 200) {
+					if ((line = br.readLine()) != null) {
+						ObjectMapper objectMapper = new ObjectMapper();
+						List<RepoInformation> repoInformation = objectMapper.readValue(line,
+								new TypeReference<List<RepoInformation>>() {
+								});
+						repoInformationList.addAll(repoInformation);
+						// Insert all repos pages data
+						fnWriteResponseInFile("repos-response/repos_all_pages_info", repoInformation.toString());
+					}
+					hasNext = httpResponse.getFirstHeader("link").toString().contains("rel=\"next\"");
+					logger.info("page_hasNext -> " + hasNext + " -> page -> " + page);
+					page++;
+				} else if (httpResponse.getStatusLine().getStatusCode() == 401) {
+					logger.info("============== Token has been expired or not valid ==============");
+					hasNext = false;
 				}
-				hasNext = httpResponse.getFirstHeader("link").toString().contains("rel=\"next\"");
-				logger.info("page_hasNext -> " + hasNext + " -> page -> " + page);
-				page++;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return repoInformation;
+		return repoInformationList;
+
 	}
 
 	public ReleaseInformation fnGetApacheReposReleaseInfoByHttpClient(String repoName) {
 		String url = "https://api.github.com/repos/apache/" + repoName + "/releases/latest";
 		logger.info("Calling webclient fnGetApacheReposReleaseInfoByHttpClient() -> " + url);
 		ReleaseInformation releaseInformation = new ReleaseInformation();
-		fnSetFileBlank("repos-response/repos_all_pages_info");
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			HttpGet httpGet = new HttpGet(url);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
@@ -92,6 +100,9 @@ public class ApacheReposWebClient {
 					releaseInformation = objectMapper.readValue(line, ReleaseInformation.class);
 					logger.info(line);
 					if (releaseInformation.getAssets().size() > 0) {
+						// Clear old release data
+						fnSetFileBlank("release-response/" + repoName);
+						// Insert new release data
 						fnWriteResponseInFile("release-response/" + repoName, releaseInformation.toString());
 					}
 				}
