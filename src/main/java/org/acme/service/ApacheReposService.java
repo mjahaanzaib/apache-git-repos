@@ -29,24 +29,30 @@ public class ApacheReposService {
 	private final String USERNAME = "userh2";
 	private final String PASSWORD = "12345";
 
+	private ApacheReposWebClient apacheReposWebClient;
+
+	public ApacheReposService(String gitHubAccessToken) {
+		this.apacheReposWebClient = new ApacheReposWebClient(gitHubAccessToken);
+	}
+
 	public List<RepoInformation> getApacheReposList() {
 		logger.info("Getting repos information list...");
-		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
+		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		List<RepoInformation> reposInformation = apacheReposWebClient.fnGetApacheReposByHttpClient();
 		return reposInformation;
 	}
 
 	public List<Response> getTopFiveReposWithMostDownloads() {
 		logger.info("Getting top 5 most downloads repos...");
-		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
+		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		int count = 0;
 		ArrayList<Response> responseList = new ArrayList<>();
 		for (RepoInformation repoInformation : getApacheReposList()) {
-			logger.info("RepoInformation -> " + (count++) + " -> " + repoInformation);
-			Response response = new Response();
 			ReleaseInformation releaseInformation = apacheReposWebClient
 					.fnGetApacheReposReleaseInfoByHttpClient(repoInformation.getName());
-			if (!Objects.isNull(releaseInformation)) {
+			if (Objects.nonNull(releaseInformation) && !releaseInformation.getAssets().isEmpty()) {
+				logger.info("RepoInformation -> " + (count++) + " -> " + repoInformation);
+				Response response = new Response();
 				response = new Response(repoInformation.getName(),
 						releaseInformation.getId(),
 						releaseInformation.getTagName(),
@@ -55,6 +61,9 @@ public class ApacheReposService {
 				responseList.add(response);
 			}
 		}
+		// responseList.add(
+		// new Response("xyz", 521, "xoxo", 12,
+		// "https://api.github.com/repos/apache/tapestry3/contributors"));
 		Collections.sort(responseList);
 		logger.info("hashtable -> " + responseList.size());
 		List<Response> top5mostDownloadsRepos = responseList.subList(0, Math.min(responseList.size(), 5));
@@ -66,7 +75,7 @@ public class ApacheReposService {
 		logger.info("Getting top 10 repo contributors information list...");
 		List<Response> topFiveRepos = getTopFiveReposWithMostDownloads();
 		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = new Hashtable<String, List<ContributorInformation>>();
-		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
+		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		for (Response response : topFiveRepos) {
 			List<ContributorInformation> contributorInformationList = new ArrayList<ContributorInformation>();
 			contributorInformationList = apacheReposWebClient.fnGetReposContributor(response.getContributorUrl());
@@ -82,7 +91,7 @@ public class ApacheReposService {
 	public void fnSaveContributorInfo() {
 		logger.info("Storing top 10 contributors of repo in h2 db...");
 		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = fnGetTopTenReposContributor();
-		ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
+		// ApacheReposWebClient apacheReposWebClient = new ApacheReposWebClient();
 		for (Entry<String, List<ContributorInformation>> repoTable : contributorsTableofRepo.entrySet()) {
 			for (ContributorInformation contributorInformation : repoTable.getValue()) {
 				UserInformation userInformation = apacheReposWebClient
