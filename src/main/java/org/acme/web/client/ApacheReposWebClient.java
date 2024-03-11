@@ -28,7 +28,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class ApacheReposWebClient {
 
 	private static final Logger logger = Logger.getLogger("ApacheReposWebClient");
-	private static final String gitHubAccessToken = System.getProperty("githubToken");
+	// private static final String gitHubAccessToken =
+	// "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";
+	private String gitHubAccessToken;
+
+	public ApacheReposWebClient(String gitHubAccessToken) {
+		this.gitHubAccessToken = gitHubAccessToken;
+	}
 
 	public List<RepoInformation> fnGetApacheReposByHttpClient() {
 		int page = 1;
@@ -51,7 +57,7 @@ public class ApacheReposWebClient {
 					ObjectMapper objectMapper = new ObjectMapper();
 					repoInformation.addAll(objectMapper.readValue(line, new TypeReference<List<RepoInformation>>() {
 					}));
-					fnAppendUsingPrintWriter("repos-response/repos_all_pages_info", repoInformation.toString());
+					fnWriteResponseInFile("repos-response/repos_all_pages_info", repoInformation.toString());
 				}
 				hasNext = httpResponse.getFirstHeader("link").toString().contains("rel=\"next\"");
 				logger.info("page_hasNext -> " + hasNext + " -> page -> " + page);
@@ -83,10 +89,12 @@ public class ApacheReposWebClient {
 					releaseInformation = objectMapper.readValue(line, ReleaseInformation.class);
 					logger.info(line);
 					if (releaseInformation.getAssets().size() > 0) {
-						fnAppendUsingPrintWriter("release-response/" + repoName, releaseInformation.toString());
-						logger.info("nested: " + line);
+						fnWriteResponseInFile("release-response/" + repoName, releaseInformation.toString());
+						// logger.info("nested: " + line);
 					}
 				}
+			}else{
+				return null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,7 +155,7 @@ public class ApacheReposWebClient {
 		return userInformation;
 	}
 
-	private void fnAppendUsingPrintWriter(String filePath, String text) {
+	private void fnWriteResponseInFile(String filePath, String text) {
 		File file = new File(filePath);
 		FileWriter fr = null;
 		BufferedWriter br = null;
