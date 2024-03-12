@@ -28,7 +28,7 @@ import org.acme.dto.Response;
 
 public class ApacheReposService {
 
-	SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy-HHmmss");
+	SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy-HH");
 	Date date = new Date();
 	String dateTime = formatter.format(date);
 
@@ -167,10 +167,14 @@ public class ApacheReposService {
 				String contributorCompany = rs.getString("contributor_company");
 				long commitCount = rs.getLong("commit_count");
 
-				logger.info("repository_name : " + repositoryName + " | contributor_username : " + contributorUsername
+				String top10contributorsInfo = "repository_name : " + repositoryName + " | contributor_username : "
+						+ contributorUsername
 						+ " | contributor_name : " + contributorName + " | contributor_location : "
 						+ contributorLocation + " | contributor_company : " + contributorCompany + " | commit_count : "
-						+ commitCount);
+						+ commitCount;
+				logger.info(top10contributorsInfo);
+				apacheReposWebClient.fnWriteResponseInFile("top_10_contributors_stored_in_h2_" + dateTime,
+						top10contributorsInfo);
 			}
 			logger.info("========= Successfully retrieved apache repositories information from H2 =========");
 		} catch (SQLException e) {

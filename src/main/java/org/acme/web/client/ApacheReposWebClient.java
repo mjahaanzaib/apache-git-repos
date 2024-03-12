@@ -168,7 +168,7 @@ public class ApacheReposWebClient {
 		return userInformation;
 	}
 
-	private void fnWriteResponseInFile(String filePath, String text) {
+	public void fnWriteResponseInFile(String filePath, String text) {
 		File file = new File(filePath);
 		FileWriter fr = null;
 		BufferedWriter br = null;

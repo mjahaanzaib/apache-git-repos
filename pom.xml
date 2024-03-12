@@ -71,7 +71,6 @@
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
             <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
-          <argLine>${githubToken}</argLine>
         </configuration>
       </plugin>
       <plugin>
