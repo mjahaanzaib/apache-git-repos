@@ -1,4 +1,4 @@
-## 10 Most contributors of 5 most repo with downloads
+## Top 10 contributors of 5 most downloads repos
 
 INFO: ========= Try to retrieve apache repositories information from H2 =========
 Mar 12, 2024 2:14:38 AM org.acme.service.ApacheReposService fnGetContributionsInfoFromH2
