@@ -21,7 +21,18 @@ public class MainResource {
 			logger.info("========= Try to retrieve apache repositories information from H2 =========");
 			apacheReposService.fnGetContributionsInfoFromH2();
 		} else {
-			logger.info("Kindly update access token in .batch file.");
+			logger.info("Kindly update access token in .batch file. For get 4000+ free requests");
+
+			logger.info("========= Currenlty you are using github api without token =========");
+			logger.info("========= You have only 60 requests for an hour =========");
+			ApacheReposService apacheReposService = new ApacheReposService("");
+			logger.info(
+					"========= Kindly wait for a while to gather the required information from apache repositories =========");
+			apacheReposService.fnSaveContributorInfo();
+			logger.info("========= Required information from apache repositories has been stored in H2 =========");
+
+			logger.info("========= Try to retrieve apache repositories information from H2 =========");
+			apacheReposService.fnGetContributionsInfoFromH2();
 		}
 	}
 }
