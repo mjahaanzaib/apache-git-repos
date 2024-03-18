@@ -48,7 +48,7 @@ public class ApacheReposService {
 		return apacheReposWebClient.fnGetApacheReposByHttpClient();
 	}
 
-	public List<Response> getTopFiveReposWithMostDownloads() {
+	public List<Response> fnGetTopFiveReposWithMostDownloads() {
 		logger.info("Getting top 5 most downloads repos...");
 		int count = 0;
 		ArrayList<Response> responseList = new ArrayList<>();
@@ -73,17 +73,29 @@ public class ApacheReposService {
 		return top5mostDownloadsRepos;
 	}
 
+	public List<RepoInformation> fnGetTopFiveReposWithStargazerCount() {
+		logger.info("Getting top 5 repos by stargazer count...");
+		List<RepoInformation> repoInformationList = new ArrayList<>();
+		repoInformationList.addAll(getApacheReposList());
+		Collections.sort(repoInformationList);
+		logger.info("RepoInformation -> " + repoInformationList.size());
+		return repoInformationList.subList(0, Math.min(repoInformationList.size(), 5));
+	}
+
 	public Hashtable<String, List<ContributorInformation>> fnGetTopTenReposContributor() {
 		logger.info("Getting top 10 repo contributors information list...");
-		List<Response> topFiveRepos = getTopFiveReposWithMostDownloads();
+		// List<Response> topFiveRepos = fnGetTopFiveReposWithMostDownloads();
+		List<RepoInformation> topFiveRepos = fnGetTopFiveReposWithStargazerCount();
+		logger.info("topFiveRepos by StargazerCount -> " + topFiveRepos);
 		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = new Hashtable<String, List<ContributorInformation>>();
-		for (Response response : topFiveRepos) {
+		for (RepoInformation repoInformation : topFiveRepos) {
 			List<ContributorInformation> contributorInformationList = new ArrayList<ContributorInformation>();
-			contributorInformationList = apacheReposWebClient.fnGetReposContributor(response.getContributorUrl());
+			contributorInformationList = apacheReposWebClient
+					.fnGetReposContributor(repoInformation.getContributorsUrl());
 			Collections.sort(contributorInformationList);
 			List<ContributorInformation> top10ContributorsInfo = contributorInformationList.subList(0,
 					Math.min(contributorInformationList.size(), 10));
-			contributorsTableofRepo.put(response.getRepoName(), top10ContributorsInfo);
+			contributorsTableofRepo.put(repoInformation.getName(), top10ContributorsInfo);
 		}
 		logger.info(" Top 10 contributors of repo sorted by most commits -> " + contributorsTableofRepo.toString());
 		return contributorsTableofRepo;
