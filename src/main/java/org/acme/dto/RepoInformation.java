@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RepoInformation {
+public class RepoInformation implements Comparable<RepoInformation> {
 
     private BigDecimal id;
 
@@ -14,6 +14,9 @@ public class RepoInformation {
 
     @JsonProperty("contributors_url")
     private String contributorsUrl;
+
+    @JsonProperty("stargazers_count")
+    private long stargazersCount;
 
     public BigDecimal getId() {
         return id;
@@ -39,9 +42,22 @@ public class RepoInformation {
         this.contributorsUrl = contributorsUrl;
     }
 
-    @Override
-    public String toString() {
-        return "RepoInformation [id=" + id + ", name=" + name + ", contributorsUrl=" + contributorsUrl + "]";
+    public long getStargazersCount() {
+        return stargazersCount;
     }
 
+    public void setStargazersCount(long stargazersCount) {
+        this.stargazersCount = stargazersCount;
+    }
+
+    @Override
+    public int compareTo(RepoInformation repoObject) {
+        return Long.compare(repoObject.stargazersCount, this.stargazersCount);
+    }
+
+    @Override
+    public String toString() {
+        return "RepoInformation [id=" + id + ", name=" + name + ", contributorsUrl=" + contributorsUrl
+                + ", stargazersCount=" + stargazersCount + "]";
+    }
 }
