@@ -49,8 +49,8 @@ public class ApacheReposWebClient {
 				logger.info("Calling webclient fnGetApacheReposByHttpClient() -> " + url);
 				HttpGet httpGet = new HttpGet(url);
 				httpGet.addHeader("Accept", "application/vnd.github+json");
-				// httpGet.addHeader("Authorization",
-				// 		"Bearer " + gitHubAccessToken);
+				httpGet.addHeader("Authorization",
+						"Bearer " + gitHubAccessToken);
 				httpGet.addHeader("X-GitHub-Api-Version", "2022-11-28");
 				HttpResponse httpResponse = httpClient.execute(httpGet);
 				BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
@@ -121,8 +121,8 @@ public class ApacheReposWebClient {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			HttpGet httpGet = new HttpGet(contributorUrl);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
-			// httpGet.addHeader("Authorization",
-			// 		"Bearer " + gitHubAccessToken);
+			httpGet.addHeader("Authorization",
+					"Bearer " + gitHubAccessToken);
 			httpGet.addHeader("X-GitHub-Api-Version", "2022-11-28");
 			HttpResponse httpResponse = httpClient.execute(httpGet);
 			logger.info("webclient call status -> " + httpResponse.getStatusLine().getStatusCode());
@@ -149,8 +149,8 @@ public class ApacheReposWebClient {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build();) {
 			HttpGet httpGet = new HttpGet(url);
 			httpGet.addHeader("Accept", "application/vnd.github+json");
-			// httpGet.addHeader("Authorization",
-			// 		"Bearer " + gitHubAccessToken);
+			httpGet.addHeader("Authorization",
+					"Bearer " + gitHubAccessToken);
 			httpGet.addHeader("X-GitHub-Api-Version", "2022-11-28");
 			HttpResponse httpResponse = httpClient.execute(httpGet);
 			logger.info("webclient call status -> " + httpResponse.getStatusLine().getStatusCode());
