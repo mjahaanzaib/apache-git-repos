@@ -1,1 +1,1 @@
-java "-DgithubToken=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" -jar apache-git-repos-info.jar
+java "-DgithubToken=<PUT YOUR ACCESS TOKEN HERE>" -jar apache-git-repos-info.jar

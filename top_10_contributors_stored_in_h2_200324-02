@@ -1,0 +1,50 @@
+repository_name : superset | contributor_username : mistercrunch | contributor_name : Maxime Beauchemin | contributor_location : San Mateo, CA | contributor_company : preset-io | commit_count : 2134
+repository_name : superset | contributor_username : kristw | contributor_name : Krist Wongsuphasawat | contributor_location : San Francisco, CA | contributor_company : @airbnb  | commit_count : 834
+repository_name : superset | contributor_username : villebro | contributor_name : Ville Brofeldt | contributor_location : Palo Alto, California | contributor_company : null | commit_count : 788
+repository_name : superset | contributor_username : betodealmeida | contributor_name : Beto Dealmeida | contributor_location : Bodega Bay, CA | contributor_company : @preset-io | commit_count : 581
+repository_name : superset | contributor_username : michael-s-molina | contributor_name : Michael S. Molina | contributor_location : Curitiba, Brazil | contributor_company : Airbnb | commit_count : 568
+repository_name : superset | contributor_username : john-bodley | contributor_name : John Bodley | contributor_location : null | contributor_company : null | commit_count : 546
+repository_name : superset | contributor_username : dependabot | contributor_name : Dependabot | contributor_location : United States of America | contributor_company : null | commit_count : 511
+repository_name : superset | contributor_username : kgabryje | contributor_name : Kamil Gabryjelski | contributor_location : Warsaw | contributor_company : Preset | commit_count : 441
+repository_name : superset | contributor_username : dpgaspar | contributor_name : Daniel Vaz Gaspar | contributor_location : Lisbon, Portugal | contributor_company : @preset-io @apache | commit_count : 437
+repository_name : superset | contributor_username : ktmud | contributor_name : Jesse Yang | contributor_location : San Francisco | contributor_company : Airbnb | commit_count : 393
+repository_name : echarts | contributor_username : pissang | contributor_name : Yi Shen | contributor_location : Shanghai, China | contributor_company : null | commit_count : 3156
+repository_name : echarts | contributor_username : 100pah | contributor_name : sushuang | contributor_location : null | contributor_company : null | commit_count : 2313
+repository_name : echarts | contributor_username : kener | contributor_name : linfeng | contributor_location : china | contributor_company : Alipay | commit_count : 1137
+repository_name : echarts | contributor_username : Ovilia | contributor_name : Wenli Zhang | contributor_location : Shanghai, China | contributor_company : null | commit_count : 887
+repository_name : echarts | contributor_username : plainheart | contributor_name : Zhongxiang Wang | contributor_location : Zhengzhou, China | contributor_company : null | commit_count : 482
+repository_name : echarts | contributor_username : deqingli | contributor_name : Deqing Li | contributor_location : null | contributor_company : null | commit_count : 234
+repository_name : echarts | contributor_username : susiwen8 | contributor_name : susiwen8 | contributor_location : Hangzhou | contributor_company : Ant Group | commit_count : 219
+repository_name : echarts | contributor_username : loutongbing | contributor_name : null | contributor_location : null | contributor_company : null | commit_count : 44
+repository_name : echarts | contributor_username : yufeng04 | contributor_name : make it right | contributor_location : shanghai | contributor_company : bupt | commit_count : 44
+repository_name : echarts | contributor_username : jiawulin001 | contributor_name : 50 | contributor_location : Shenzhen, China | contributor_company : null | commit_count : 34
+repository_name : dubbo | contributor_username : chickenlj | contributor_name : Ken Liu | contributor_location : Hangzhou, China | contributor_company : Alibaba | commit_count : 1112
+repository_name : dubbo | contributor_username : AlbumenJ | contributor_name : Albumen Kevin | contributor_location : Earth | contributor_company : Personal | commit_count : 944
+repository_name : dubbo | contributor_username : dependabot | contributor_name : Dependabot | contributor_location : United States of America | contributor_company : null | commit_count : 492
+repository_name : dubbo | contributor_username : beiwei30 | contributor_name : Ian Luo | contributor_location : HangZhou, China | contributor_company : @alibaba  | commit_count : 270
+repository_name : dubbo | contributor_username : cvictory | contributor_name : cvictory | contributor_location : null | contributor_company : null | commit_count : 158
+repository_name : dubbo | contributor_username : CrazyHZM | contributor_name : huazhongming | contributor_location : Hangzhou China | contributor_company : null | commit_count : 150
+repository_name : dubbo | contributor_username : liangfei0201 | contributor_name : 梁飞 | contributor_location : Hangzhou, China | contributor_company : Alibaba | commit_count : 131
+repository_name : dubbo | contributor_username : mercyblitz | contributor_name : Mercy Ma | contributor_location : Hangzhou, China | contributor_company : OpenSource | commit_count : 113
+repository_name : dubbo | contributor_username : oldratlee | contributor_name : 李鼎 | contributor_location : Shanghai ⇌ Hangzhou Zhejiang, China | contributor_company : PDD @taobao @aliyun @alibaba | commit_count : 105
+repository_name : dubbo | contributor_username : ralf0131 | contributor_name : Huxing Zhang | contributor_location : Hangzhou, China | contributor_company : Alibaba | commit_count : 98
+repository_name : spark | contributor_username : mateiz | contributor_name : Matei Zaharia | contributor_location : San Francisco, CA | contributor_company : Databricks Inc. | commit_count : 1588
+repository_name : spark | contributor_username : HyukjinKwon | contributor_name : Hyukjin Kwon | contributor_location : South Korea | contributor_company : @Apache @Databricks | commit_count : 1541
+repository_name : spark | contributor_username : dongjoon-hyun | contributor_name : Dongjoon Hyun | contributor_location : San Francisco Bay Area | contributor_company : @apple @apache  | commit_count : 1487
+repository_name : spark | contributor_username : rxin | contributor_name : Reynold Xin | contributor_location : San Francisco | contributor_company : Databricks | commit_count : 1482
+repository_name : spark | contributor_username : cloud-fan | contributor_name : Wenchen Fan | contributor_location : Hangzhou, China | contributor_company : Databricks | commit_count : 1154
+repository_name : spark | contributor_username : zhengruifeng | contributor_name : Ruifeng Zheng | contributor_location : Beijing, China | contributor_company : Databricks | commit_count : 936
+repository_name : spark | contributor_username : MaxGekk | contributor_name : Maxim Gekk | contributor_location : Moscow, Russia | contributor_company : Databricks Inc. | commit_count : 863
+repository_name : spark | contributor_username : pwendell | contributor_name : Patrick Wendell | contributor_location : null | contributor_company : null | commit_count : 857
+repository_name : spark | contributor_username : LuciferYang | contributor_name : YangJie | contributor_location : Beijing | contributor_company : @baidu | commit_count : 833
+repository_name : spark | contributor_username : viirya | contributor_name : Liang-Chi Hsieh | contributor_location : Seattle | contributor_company : @apple @apache  | commit_count : 675
+repository_name : airflow | contributor_username : potiuk | contributor_name : Jarek Potiuk | contributor_location : Warsaw | contributor_company : Apache Software Foundation | commit_count : 3174
+repository_name : airflow | contributor_username : mistercrunch | contributor_name : Maxime Beauchemin | contributor_location : San Mateo, CA | contributor_company : preset-io | commit_count : 1702
+repository_name : airflow | contributor_username : kaxil | contributor_name : Kaxil Naik | contributor_location : United Kingdom | contributor_company : @astronomer  | commit_count : 1330
+repository_name : airflow | contributor_username : mik-laj | contributor_name : Kamil Breguła | contributor_location : Warsaw | contributor_company : @Snowflakedb | commit_count : 820
+repository_name : airflow | contributor_username : ashb | contributor_name : Ash Berlin-Taylor | contributor_location : London | contributor_company : Astronomer.io | commit_count : 706
+repository_name : airflow | contributor_username : bolkedebruin | contributor_name : null | contributor_location : null | contributor_company : null | commit_count : 537
+repository_name : airflow | contributor_username : jedcunningham | contributor_name : Jed Cunningham | contributor_location : Denver, CO | contributor_company : @astronomer | commit_count : 485
+repository_name : airflow | contributor_username : ephraimbuddy | contributor_name : Ephraim Anierobi | contributor_location : Nigeria | contributor_company : Astronomerio | commit_count : 435
+repository_name : airflow | contributor_username : Taragolis | contributor_name : Andrey Anshin | contributor_location : Georgia, Tbilisi | contributor_company : @narrative-bi | commit_count : 411
+repository_name : airflow | contributor_username : dstandish | contributor_name : Daniel Standish | contributor_location : null | contributor_company : null | commit_count : 402
