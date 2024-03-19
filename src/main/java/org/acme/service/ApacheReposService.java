@@ -84,9 +84,15 @@ public class ApacheReposService {
 
 	public Hashtable<String, List<ContributorInformation>> fnGetTopTenReposContributor() {
 		logger.info("Getting top 10 repo contributors information list...");
+
+		// For most downloads of repositories
 		// List<Response> topFiveRepos = fnGetTopFiveReposWithMostDownloads();
+		// logger.info("topFiveRepos by most downloads -> " + topFiveRepos);
+
+		// For most stargazer count
 		List<RepoInformation> topFiveRepos = fnGetTopFiveReposWithStargazerCount();
 		logger.info("topFiveRepos by StargazerCount -> " + topFiveRepos);
+
 		Hashtable<String, List<ContributorInformation>> contributorsTableofRepo = new Hashtable<String, List<ContributorInformation>>();
 		for (RepoInformation repoInformation : topFiveRepos) {
 			List<ContributorInformation> contributorInformationList = new ArrayList<ContributorInformation>();
